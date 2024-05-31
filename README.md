@@ -28,7 +28,7 @@ If you find our work useful in your research, please consider citing:
 }
 ```
 
-## Dependencies
+## Install
 ```shell
 # Create a new conda environment
 conda create -n genzi python=3.8
@@ -49,7 +49,7 @@ conda install -y open3d-admin::open3d=0.10.0.0
 
 ## Data
 
-The data and pretrained models can be found [here](https://1drv.ms/u/s!Alg6Vpe53dEDgrcBClkV5NvqydM9Xg?e=nsyPeU).
+The 3D scene data and our generation results can be found [here](https://1drv.ms/u/s!Alg6Vpe53dEDgrcBClkV5NvqydM9Xg?e=nsyPeU).
 Extract the content of the zipped file to the root directory of the code.
 
 ## Running

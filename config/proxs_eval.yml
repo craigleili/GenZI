@@ -1,0 +1,43 @@
+path_prefix: "./data"
+group: proxs
+gpus: [0]
+seed: 1
+
+vposer:
+  ckpt_path: "${path_prefix}/smpl-x/vposer_V02_05"
+
+smplx:
+  model_path: "${path_prefix}/smpl-x/models_smplx_v1_1"
+  uv_path: "${path_prefix}/smpl-x/smplx_uv_template.txt"
+  tex_path: "${path_prefix}/smpl-x/smplx_texture_f_alb_1024.png"
+  model_type: "smplx"
+  batch_size: 1
+  num_pca_comps: 12
+
+vlm:
+  clip_path: "openai/clip-vit-base-patch32"
+
+render:
+  image_size: 512
+
+metrics:
+  cls_nums: [20, 50]
+  smplx_params:
+    - "body_pose"
+    - "left_hand_pose"
+    - "right_hand_pose"
+
+data:
+  exp_dir: "${path_prefix}/log_genzi/proxs"
+  exp_name: "genzi_proxs"
+  include_composition: False
+  ignore_missing: True
+  stages: [0, 1]
+  root_dir: "${path_prefix}/proxs"
+  cfg_suffix: "_v1.yml"
+  fov: 60
+  scenes: 
+    - "MPH1Library"
+    - "MPH16"
+    - "N0SittingBooth"
+    - "N3OpenArea"

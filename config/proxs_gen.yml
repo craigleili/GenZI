@@ -1,0 +1,146 @@
+project: GenZI
+group: proxs
+tags: []
+notes: ""
+gpus: [0]
+seed: 1
+path_prefix: "./data"
+log_dir: "${path_prefix}/log_genzi"
+exp_time: ""
+ckpt_freq: 50
+log_freq: 50
+save_gif: False
+train_ckpt: ""
+test_ckpt: ""
+
+vposer:
+  ckpt_path: "${path_prefix}/smpl-x/vposer_V02_05"
+
+smplx:
+  model_path: "${path_prefix}/smpl-x/models_smplx_v1_1"
+  uv_path: "${path_prefix}/smpl-x/smplx_uv_template.txt"
+  tex_path: "${path_prefix}/smpl-x/smplx_texture_f_alb_1024.png"
+  model_type: "smplx"
+  gender: "neutral"
+  batch_size: 1
+  num_pca_comps: 12
+  use_latent_pose: True
+  use_shape_params: True
+  use_continous_rot_repr: True
+  rotation_axes: "xz"
+  rotation_angles: [90.0, 90.0]
+
+render:
+  image_size: 512
+
+vlm:
+  ldm_inpaint_path: "stabilityai/stable-diffusion-2-inpainting"
+  neg_prompt_path: "${path_prefix}/negative_prompts_v1.txt"
+  deterministic: False
+  num_inference_steps: 50
+  guidance_scale: 7.5
+  attn_res: [16, 16]
+  attn_thresh_start: 0.7
+  attn_thresh_end: 0.7
+  attn_average_steps: 3
+  dynamic_mask_starts:
+    - 0
+    - 0
+  dynamic_mask_stops:
+    - 25
+    - 0
+  dilate_size: 
+    - [0, 0]
+    - [11, 11]
+  dilate_iterations:
+    - 0
+    - 8
+  inpaint_dir: ""
+  clip_path: "openai/clip-vit-base-patch32"
+
+pose2d:
+  args_path: "config/alphapose.yml"
+  score_thresh: 0.25
+  min_num_joints: 13
+
+data:
+  root_dir: "${path_prefix}/proxs"
+  scenes: 
+    - "MPH1Library"
+    - "MPH16"
+    - "N0SittingBooth"
+    - "N3OpenArea"
+  cfg_suffix: "_v1.yml"
+  max_views: 16
+  num_viewpoints: 256
+  view_distances:
+    - 2.0
+    - 2.0
+  patch_radius: 0.15
+  use_at_normal: True
+  fov: 60
+
+optim:
+  type: "adamw"
+  grad_clip: -1
+  transl_lrs:
+    - [0.01, 0.01, 0.01, 0.01]
+    - [0.01, 0.01, 0.01, 0.01]
+  orient_lrs:
+    - [0.01, 0.01, 0.01, 0.01]
+    - [0.01, 0.01, 0.01, 0.01]
+  pose_lrs:
+    - [0.01, 0.01, 0.01, 0.01]
+    - [0.01, 0.01, 0.01, 0.01]
+  shape_lrs:
+    - [0.01, 0.01, 0.01, 0.01]
+    - [0.01, 0.01, 0.01, 0.01]
+  is_lrs:
+    - [0.00, 0.01, 0.01, 0.01]
+    - [0.00, 0.01, 0.01, 0.01]
+  steps:
+    - [400, 400, 400, 400]
+    - [400, 400, 400, 400]
+
+loss:
+  inpaint_min_views: 3
+  inpaints_per_view:
+    - 4
+    - 2
+  inpaint_score_weights:
+    - [1, 1, 1, 1, 1]
+    - [1, 1, 1, 1, 1]
+  joint2d_torso_weights:
+    - [1, 1, 1, 1, 1]
+    - [1, 1, 1, 1, 1]
+  joint2d_limb_weights:
+    - [1, 1, 1, 1, 1]
+    - [1, 1, 1, 1, 1]
+  joint2d_rho: 0.2
+  vposer_weights:
+    - [0, 0, 0, 0.001, 0.01]
+    - [0, 0, 0, 0.001, 0.01]
+  beta0_weight: 0.5
+  beta_weights:
+    - [0, 0, 0, 0.1, 1.0]
+    - [0, 0, 0, 0.1, 1.0]
+  scene_intersect_thresh: 0
+  scene_intersect_weights:
+    - [10, 1, 0.1, 1, 50]
+    - [10, 1, 0.1, 1, 50]
+  scene_nocontact_weights:
+    - [0, 0, 0, 10, 1000]
+    - [0, 0, 0, 10, 1000]
+  self_intersect_weights:
+    - [0, 0, 0, 0, 0]
+    - [0, 0, 0, 1e-5, 1e-4]
+  angle_weights:
+    - [0, 0, 0, 1, 1]
+    - [0, 0, 0, 1, 1]
+  floating_weights:
+    - [0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0]
+  joint3d_weights:
+    - [0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0]
+  joint3d_rho: 1.0

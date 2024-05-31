@@ -1,0 +1,32 @@
+cfg: "configs/halpe_68_noface/resnet/256x192_res50_lr1e-3_2x-dcn-combined.yaml"  # str: experiment configure file name
+checkpoint: "pretrained_models/noface_fast50_dcn_combined_256x192.pth"  # str: checkpoint file name
+sp: False  # bool: Use single process for pytorch
+detector: "yolo"  # str: detector name
+detfile: ""  # str: detection result file
+inputpath: ""  # str: image-directory
+inputlist: ""  # str: image-list
+inputimg: ""  # str: image-name
+outputpath: "./data/log_alphapose"  # str: output-directory
+save_img: True  # bool: save result as image
+vis: False  # bool: visualize image in an opened window
+showbox: False  # bool: visualize human bbox
+profile: False  # bool: add speed profiling at screen output
+format: "open"  # str: save in the format of cmu or coco or openpose, option: coco/cmu/open
+min_box_area: 0  # int: min box area to filter out
+detbatch: 5  # int: detection batch size PER GPU
+posebatch: 64  # int: pose estimation maximum batch size PER GPU
+eval: False  # bool: save the result json as coco format, using image index(int) instead of image name(str)
+gpus: "0"  # str: choose which cuda device to use by index and input comma to use multi gpus, e.g. 0,1,2,3. (input -1 for cpu only)
+qsize: 1024  # int: the length of result buffer, where reducing it will lower requirement of cpu memory
+flip: False  # bool: enable flip testing
+debug: False  # bool: print detail information
+
+#--- Video options ---#
+video: ""  # str: video-name
+webcam: -1  # int: webcam number
+save_video: False  # bool: whether to save rendered video
+vis_fast: False  # bool: use fast rendering
+
+#--- Tracking options ---#
+pose_flow: False  # bool: track humans in video with PoseFlow
+pose_track: False  # bool: track humans in video with reid

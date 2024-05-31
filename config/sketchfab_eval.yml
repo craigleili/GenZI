@@ -1,0 +1,47 @@
+path_prefix: "./data"
+group: sketchfab
+gpus: [0]
+seed: 1
+
+vposer:
+  ckpt_path: "${path_prefix}/smpl-x/vposer_V02_05"
+
+smplx:
+  model_path: "${path_prefix}/smpl-x/models_smplx_v1_1"
+  uv_path: "${path_prefix}/smpl-x/smplx_uv_template.txt"
+  tex_path: "${path_prefix}/smpl-x/smplx_texture_f_alb_1024.png"
+  model_type: "smplx"
+  batch_size: 1
+  num_pca_comps: 12
+
+vlm:
+  clip_path: "openai/clip-vit-base-patch32"
+
+render:
+  image_size: 512
+
+metrics:
+  cls_nums: [20, 50]
+  smplx_params:
+    - "body_pose"
+    - "left_hand_pose"
+    - "right_hand_pose"
+
+data:
+  exp_dir: "${path_prefix}/log_genzi/sketchfab"
+  exp_name: "genzi_sketchfab"
+  include_composition: False
+  ignore_missing: False
+  stages: [0, 1]
+  root_dir: "${path_prefix}/sketchfab"
+  cfg_suffix: "_v1.yml"
+  fov: 60
+  scenes:
+    - "quintyn-glenn-city-scene-kyoto"
+    - "low-poly-farm-v2"
+    - "low-poly-winter-scene"
+    - "a-food-truck-project"
+    - "bangkok-city-scene"
+    - "modular_gym"
+    - "venice-city-scene-1dae08-aaron-ongena"
+    - "ww2-cityscene-carentan-inspired"

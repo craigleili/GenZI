@@ -39,7 +39,7 @@ conda install -y pytorch=2.0.1 torchvision=0.15.2 torchaudio=2.0.2 pytorch-cuda=
 
 # Install other libraries
 pip install -r requirements.txt
-pip install -U --no-deps smplx==0.1.28 git+https://github.com/nghorbani/human_body_prior.git
+pip install -U --no-deps smplx==0.1.28 git+https://github.com/nghorbani/human_body_prior.git@8d13d5f
 conda install -y open3d-admin::open3d=0.10.0.0
 # Install PyTorch3D: https://github.com/facebookresearch/pytorch3d/blob/main/INSTALL.md
 # Install AlphaPose: https://github.com/MVIG-SJTU/AlphaPose (try Cython==0.29.35 setuptools==65.7.0 if anything complains)
